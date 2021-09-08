@@ -20,9 +20,10 @@ or
 
 ## Changelog
 
+### v18
+* Upgrade to Magisk 20.3+
 ### v17.4.1
 * More Android 11 support by jenslody
-
 ### v17.4
 * Android 11 support
 ### v17.3.1

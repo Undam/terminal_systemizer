@@ -133,7 +133,7 @@ print_modname() {
 on_install() {
   # The following is the default implementation: extract $ZIPFILE/system to $MODPATH
   # Extend/change the logic to whatever you want
-  
+
   no_app=0
   no_privapp=0
   no_xml=0
@@ -171,10 +171,10 @@ on_install() {
   if [ "$se_value" != "true" ]; then
     se_value=false
   fi
-  
+
   ui_print "- Extracting module files"
   unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
-  
+
   if [ $no_app == 0 ]; then
     cp -af $TMPDIR/$MODID/app $MODPATH/system
   fi
@@ -200,20 +200,7 @@ set_permissions() {
   # set_perm  $MODPATH/system/bin/app_process32   0     2000    0755      u:object_r:zygote_exec:s0
   # set_perm  $MODPATH/system/bin/dex2oat         0     2000    0755      u:object_r:dex2oat_exec:s0
   # set_perm  $MODPATH/system/lib/libart.so       0     0       0644
-  cp -af $TMPDIR/aapt $MODPATH/aapt
-  cp -af $TMPDIR/mod-util.sh $MODPATH/mod-util.sh
-  bin=xbin
-  if [ ! -d /system/xbin ]; then
-    bin=bin
-    mkdir $MODPATH/system/$bin
-    mv $MODPATH/system/xbin/systemize $MODPATH/system/$bin
-    rm -rf $MODPATH/system/xbin/*
-    rmdir $MODPATH/system/xbin
-  fi
-  set_perm $MODPATH/system/$bin/systemize 0 0 0777
-  set_perm $MODPATH/aapt 0 0 0777
-  set_perm $MODPATH/mod-util.sh 0 0 0777
-  echo "selinux=${se_value}" >> $MODPATH/module.prop
 }
+set_perm $MODPATH/system/bin/systemize 0 0 0744
 
 # You can add more functions to assist your custom script code
